@@ -45,12 +45,19 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'rest_framework_simplejwt',
+    'products',
+    'categories',
+    'cart',
+    'django_filters',
+    'djoser',
 ]
 
+#always keep the cors middleware at the top of MIDDLEWARE
+
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -170,12 +177,25 @@ EMAIL_USE_TLS = True
 #Simple JWT settings
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication', )
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        ),
+   
+    }
+
+SIMPLE_JWT = {
+   'AUTH_HEADER_TYPES': ('JWT',),
 }
+# REST_FRAMEWORK = { 
+#     'DEFAULT_AUTHENTICATION_CLASSES': (  
+#         'rest_framework_simplejwt.authentication.JWTAuthentication',
+
+#     )
+    
+# }
 
 
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes= 20),
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
     
 
@@ -207,6 +227,10 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",    
     "http://127.0.0.1:3000",
 ]
+
+
+# CORS_ALLOW_ALL_ORIGINS=True
+# CORS_ORIGIN_WHITELIST=['http://localhost:3000',]
     # often when we are coonecting backend with frontend we tend to see this cors header error 
 # to get rid follow bellow command
 
@@ -223,4 +247,20 @@ CORS_ALLOW_METHODS = (
 )
 
 PASSWORD_RESET_TIMEOUT = 225
+
 # 900 sec=15minP
+
+# REST_FRAMEWORK = {
+#     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+#     'PAGE_SIZE': 5
+# }
+
+DJOSER={
+    'SERIALIZERS': {
+        'user_create':"fapp.serializers.MyUserCreateSerializer"
+    }
+}
+
+# RAZORPAY SETTINGS
+RAZORPAY_KEY_ID= os.environ.get('RAZORPAY_KEY_ID')
+RAZORPAY_KEY_SECRET= os.environ.get('RAZORPAY_KEY_SECRET')

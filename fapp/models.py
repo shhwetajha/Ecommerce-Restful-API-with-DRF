@@ -1,5 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser,BaseUserManager
+from django.conf import settings
+from products.models import Products
+
+
 
 # Create your models here.
 
@@ -19,6 +23,7 @@ class MyAccountManager(BaseUserManager):
             last_name=last_name, )
         
         user.set_password(password)
+        # user.password=password
         user.save(using=self._db)
         return user
     
@@ -35,7 +40,7 @@ class MyAccountManager(BaseUserManager):
 class Account(AbstractBaseUser):
     first_name=models.CharField(max_length=100,blank=True)
     last_name=models.CharField(max_length=100,blank=True)
-    username=models.CharField(max_length=50,unique=True)
+    username=models.CharField(max_length=50,unique=True,null=True,blank=True)
     email=models.EmailField(max_length=100,unique=True)
     phone=models.CharField(max_length=100,blank=True)
 
@@ -57,7 +62,7 @@ class Account(AbstractBaseUser):
 
 
     def __str__(self):
-        return self.email
+        return self.first_name
     
     def has_perm(self,perm,obj=None):
         return self.is_admin
@@ -66,4 +71,72 @@ class Account(AbstractBaseUser):
         return True
 
 # any type of user can watch the module
+    
+class ProfilePicture(models.Model):
+    name=models.CharField(max_length=100)
+    bio=models.TextField(max_length=200)
+    profile_picture=models.ImageField(upload_to='profile',null=True,blank=True)
 
+
+    def __str__(self):
+        return self.name
+
+
+
+class Orders(models.Model):
+    PAYMENT_STATUS_PENDING='P'
+    PAYMENT_STATUS_COMPLETED='C'
+    PAYMENT_STATUS_FAILED='F'
+
+
+
+
+    PAYMENT_STATUS_CHOICES=[(PAYMENT_STATUS_PENDING,'pending'),
+                        (PAYMENT_STATUS_COMPLETED,'completed'),
+                        (PAYMENT_STATUS_FAILED,'cancelled')]
+
+
+    placed_at=models.DateTimeField(auto_now_add=True)
+    payment_status=models.CharField(max_length=100,choices=PAYMENT_STATUS_CHOICES,default='PAYMENT_STATUS_PENDING')
+    owner=models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.PROTECT)
+    order_payment_id=models.CharField(max_length=100,null=True,blank=True)
+
+    @property
+    def total_price(self):
+        itemss=self.items.all()
+        order_total=sum([item.quantity*item.product.price for item in itemss])
+        return order_total
+    
+
+
+    
+
+    def __str__(self):
+        return self.payment_status
+
+
+    
+
+class OrderItem(models.Model):
+    order=models.ForeignKey(Orders,on_delete=models.PROTECT,related_name='items')
+    product=models.ForeignKey(Products,on_delete=models.PROTECT)
+    quantity=models.PositiveSmallIntegerField()
+
+    def __str__(self):
+        return self.product.product_name
+
+
+class UserProfileModel(models.Model):
+    user=models.ForeignKey(Account,on_delete=models.CASCADE,related_name='user')
+    address_line_1=models.CharField(max_length=100,null=True,blank=True)
+    address_line_2=models.CharField(max_length=100,null=True,blank=True)
+    state=models.CharField(max_length=100,null=True,blank=True)
+    city=models.CharField(max_length=100,null=True,blank=True)
+    country=models.CharField(max_length=100,null=True,blank=True)
+    profile_picture=models.ImageField(upload_to='photos/userprofile',null=True,blank=True,default='None')
+    created_at=models.DateTimeField(auto_now_add=True) 
+
+    def __str__(self):
+        return self.user.first_name
+
+    objects = models.Manager()

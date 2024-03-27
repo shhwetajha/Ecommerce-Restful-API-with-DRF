@@ -18,11 +18,30 @@ from django.urls import path,include
 from django.conf import settings
 from django.conf.urls.static import static 
 from rest_framework.authtoken import views
-    
+from .views import *
+from rest_framework.routers import DefaultRouter
+from rest_framework_nested import routers
+router=routers.DefaultRouter()
+router.register('cat',categoriesdett,basename='categoriesdett')
+router.register('cat',categoriesdett,basename='categoriesdett')
+
+
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('fapp/',include('fapp.urls')),
     path('api-token-auth/', views.obtain_auth_token),
+    path('categories/',include('categories.urls')),
+    path('products/',include('products.urls')),
+    path('home/',home.as_view()),
+    path('category_type/',category_type.as_view()),
+    path('cart/',include('cart.urls')),
+    path('categoriess/',Categorydetail.as_view()),
+    path('Categorydetails/<int:pk>/',Categorydetails.as_view()),
+    path('auth/', include('djoser.urls')),
+    path('auth/', include('djoser.urls.jwt')),
+    # path('api/token/', TokenObtainPairView.as_view(),name='token_obtain_pair'),
+    # path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('',include(router.urls)),  
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
