@@ -8,6 +8,6 @@ class categoryAdmin(admin.ModelAdmin):
     list_display=['id','category_name','slug']
 
 admin.site.register(categories,categoryAdmin)
-
+# admin.site.register(Student)
 
 

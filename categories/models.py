@@ -31,3 +31,9 @@ class categories(models.Model):
     def __str__(self):
         return self.category_name
 
+
+# class Student(models.Model):
+#     name=models.CharField(max_length=100)
+#     age=models.IntegerField()
+#     roll_no=models.IntegerField()
+

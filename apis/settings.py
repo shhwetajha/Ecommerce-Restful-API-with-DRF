@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'cart',
     'django_filters',
     'djoser',
+   
 ]
 
 #always keep the cors middleware at the top of MIDDLEWARE
@@ -58,6 +59,7 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -132,8 +134,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
-STATIC_ROOT= BASE_DIR/'static'
+STATIC_ROOT= BASE_DIR/'staticfiles'
 STATICFILES_DIRS=['fapp/static']
+# Python Anywhere deployment settings
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 MEDIA_URL='/media/'
 MEDIA_ROOT=BASE_DIR/'media'
@@ -264,3 +268,4 @@ DJOSER={
 # RAZORPAY SETTINGS
 RAZORPAY_KEY_ID= os.environ.get('RAZORPAY_KEY_ID')
 RAZORPAY_KEY_SECRET= os.environ.get('RAZORPAY_KEY_SECRET')
+
