@@ -26,9 +26,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-%)+@jo2!p3jqvu-nik*g(-b0#e0n_1pquj^se^2%!+tfd(+*)4'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["shhweta6.pythonanywhere.com"]
 
 
 # Application definition
@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     'cart',
     'django_filters',
     'djoser',
-   
+
 ]
 
 #always keep the cors middleware at the top of MIDDLEWARE
@@ -183,27 +183,27 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
         ),
-   
+
     }
 
 SIMPLE_JWT = {
    'AUTH_HEADER_TYPES': ('JWT',),
 }
-# REST_FRAMEWORK = { 
-#     'DEFAULT_AUTHENTICATION_CLASSES': (  
+# REST_FRAMEWORK = {
+#     'DEFAULT_AUTHENTICATION_CLASSES': (
 #         'rest_framework_simplejwt.authentication.JWTAuthentication',
 
 #     )
-    
+
 # }
 
 
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
-    
 
-    
+
+
 
     "AUTH_HEADER_TYPES": ("Bearer",),
     "AUTH_HEADER_NAME": "HTTP_AUTHORIZATION",
@@ -217,7 +217,7 @@ SIMPLE_JWT = {
 
     "JTI_CLAIM": "jti",
 
-    
+
 
     "TOKEN_OBTAIN_SERIALIZER": "rest_framework_simplejwt.serializers.TokenObtainPairSerializer",
     "TOKEN_REFRESH_SERIALIZER": "rest_framework_simplejwt.serializers.TokenRefreshSerializer",
@@ -228,14 +228,14 @@ SIMPLE_JWT = {
 
 # first one is for vuejs and second one is for reactjs below: for connecting while from frontend
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",    
+    "http://localhost:3000",
     "http://127.0.0.1:3000",
 ]
 
 
 # CORS_ALLOW_ALL_ORIGINS=True
 # CORS_ORIGIN_WHITELIST=['http://localhost:3000',]
-    # often when we are coonecting backend with frontend we tend to see this cors header error 
+    # often when we are coonecting backend with frontend we tend to see this cors header error
 # to get rid follow bellow command
 
 # django cors header
