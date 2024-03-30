@@ -8,7 +8,7 @@ from uuid import uuid4
 # Create your models here.
 
 class cart(models.Model):
-    cart_id=models.UUIDField(default=uuid.uuid4,editable=False,primary_key=True)
+    cart_id=models.UUIDField(max_length=36,default=uuid.uuid4,editable=False,primary_key=True)
     date_added=models.DateTimeField(auto_now_add=True)
 
     def __unicode__(self):
@@ -31,7 +31,7 @@ class cart_added(models.Model):
     
     
 class cartsecond(models.Model):
-    id=models.UUIDField(default=uuid.uuid4,primary_key=True)
+    id=models.CharField(default=uuid.uuid4,primary_key=True,max_length=36)
     user=models.ForeignKey(Account,null=True,blank=True,on_delete=models.CASCADE)
     date_added=models.DateTimeField(auto_now_add=True)
 
