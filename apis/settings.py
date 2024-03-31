@@ -159,7 +159,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATIC_ROOT= BASE_DIR/'static'
-# STATICFILES_DIRS=['fapp/static']
+STATICFILES_DIRS=['fapp/static']
 # Python Anywhere deployment settings
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
