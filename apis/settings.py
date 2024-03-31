@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-%)+@jo2!p3jqvu-nik*g(-b0#e0n_1pquj^se^2%!+tfd(+*)4
 DEBUG = False
 
 ALLOWED_HOSTS = ["shhweta6.pythonanywhere.com"]
-# 
+#
 
 
 # Application definition
@@ -100,17 +100,28 @@ WSGI_APPLICATION = 'apis.wsgi.application'
 # }
 
 
-DATABASES = {
-'default': {
-'ENGINE': 'django.db.backends.postgresql_psycopg2',
-'NAME': 'GreatKartAPIS',
-'USER': 'postgres',
-'PASSWORD': 'admin123',
-'HOST': 'localhost',
-'PORT': '5432', 
-}
-}
+# DATABASES = {
+# 'default': {
+# 'ENGINE': 'django.db.backends.postgresql_psycopg2',
+# 'NAME': 'GreatKartAPIS',
+# 'USER': 'postgres',
+# 'PASSWORD': 'admin123',
+# 'HOST': 'localhost',
+# 'PORT': '5432',
+# }
+# }
 
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'shhweta6$Ecomdatabase',
+        'USER': 'shhweta6',
+        'PASSWORD': 'mysqlpassword',
+        'HOST': 'shhweta6.mysql.pythonanywhere-services.com',   # Or an IP Address that your DB is hosted on
+        'PORT': '3306',
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
