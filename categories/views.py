@@ -9,10 +9,10 @@ from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 
-class Categories(APIView):
-    def get(self,request):
-        category=Categories.objects.all()
-        serializer=CategorySerializer(many=True)
+# class Categories(APIView):
+#     def get(self,request):
+#         category=Categories.objects.all()
+#         serializer=CategorySerializer(many=True)
 
 # @api_view(['POST'])
 # def Studentget(request):
