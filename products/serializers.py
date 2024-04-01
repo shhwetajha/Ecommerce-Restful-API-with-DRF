@@ -58,7 +58,7 @@ class ProductSerializer(serializers.ModelSerializer):
 class ProductSerial(serializers.ModelSerializer):
     gallery=ProductgallerySerializer(many=True,read_only=True)
     uploaded_images=serializers.ListField(
-        child=serializers.ImageField(max_length = 1000000,allow_empty_file = False,use_url = False),write_only=True)
+        child=serializers.ImageField(max_length = 1000000,allow_empty_file = True,use_url = False),write_only=True)
 
     class Meta:
         model=Products
