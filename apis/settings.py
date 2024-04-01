@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-%)+@jo2!p3jqvu-nik*g(-b0#e0n_1pquj^se^2%!+tfd(+*)4
 DEBUG = False
 
 ALLOWED_HOSTS = ["shhweta6.pythonanywhere.com"]
-#
+
 
 
 # Application definition
@@ -122,7 +122,7 @@ DATABASES = {
         'PORT': '3306',
     }
 }
-
+# '',
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 
