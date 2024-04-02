@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-%)+@jo2!p3jqvu-nik*g(-b0#e0n_1pquj^se^2%!+tfd(+*)4
 DEBUG = False
 
 ALLOWED_HOSTS = ["shhweta6.pythonanywhere.com"]
-
+# ""
 
 
 # Application definition
