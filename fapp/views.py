@@ -122,12 +122,12 @@ class view_loginn(viewsets.ViewSet):
             return Response({'error':serializer.errors},status=status.HTTP_400_BAD_REQUEST)
         
             
-# class UserProfile(APIView):
-#     renderer_classes=[UserRenderer]
-#     permission_classes=[IsAuthenticated]
-#     def get(self,request):
-#         serializer=UserProfileSerializer(request.user)
-#         return Response({'data':serializer.data},status=status.HTTP_200_OK)
+class UserProfile(APIView):
+    renderer_classes=[UserRenderer]
+    permission_classes=[IsAuthenticated]
+    def get(self,request):
+        serializer=UserProfileSerializer(request.user)
+        return Response({'data':serializer.data},status=status.HTTP_200_OK)
 
 # class Userdetail(APIView):
 #     renderer_classes=[UserRenderer]
