@@ -70,7 +70,7 @@ class reviewratingregister(APIView):
                 return Response({'data':'review updated successfully'},status=status.HTTP_200_OK)
             else:
                 return Response({'error':serializer.errors},status=status.HTTP_400_BAD_REQUEST)
-    except reviewrating.DoesNotExist():
+    except ObjectDoesNotExist():
         def post(self,request,single_productid):
             product=Products.objects.get(id=single_productid)
             serializer=reviewratingserialzer(data=request.data,context={'user':request.user,'product':product})
