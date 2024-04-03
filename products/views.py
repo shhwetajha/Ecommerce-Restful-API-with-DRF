@@ -62,26 +62,26 @@ class reviewratingregister(APIView):
     renderer_classes=[UserRenderer]
     permission_classes=[IsAuthenticated]
 
-    try:
-        def patch(self,request,single_productid):
-            Reviewrating=reviewrating.objects.get(user=request.user,product_id=single_productid)
-            serializer=Reviewupdateserializer(Reviewrating,data=request.data,partial=True)
-            if serializer.is_valid():
-                serializer.save()
-                return Response({'data':'review updated successfully'},status=status.HTTP_200_OK)
-            else:
-                return Response({'error':serializer.errors},status=status.HTTP_400_BAD_REQUEST)
-    except reviewrating.DoesNotExist():
-        def post(self,request,single_productid):
-            product=Products.objects.get(id=single_productid)
-            serializer=reviewratingserialzer(data=request.data,context={'user':request.user,'product':product})
-            if serializer.is_valid():
-                Reviewrating=reviewrating.objects.get(user=request.user)
-                Reviewrating.ip=request.META.get('REMOTE_ADDR')
-                Reviewrating.save()       
-                return Response({'data':'review stored successfully!'},status=status.HTTP_200_OK)
-            else:
-                return Response({'error':serializer.errors},status=status.HTTP_400_BAD_REQUEST)
+    def post(self,request,single_productid):
+        product=Products.objects.get(id=single_productid)
+        serializer=reviewratingserialzer(data=request.data,context={'user':request.user,'product':product})
+        if serializer.is_valid():
+            Reviewrating=reviewrating.objects.get(user=request.user)
+            Reviewrating.ip=request.META.get('REMOTE_ADDR')
+            Reviewrating.save()       
+            return Response({'data':'review stored successfully!'},status=status.HTTP_200_OK)
+        else:
+            return Response({'error':serializer.errors},status=status.HTTP_400_BAD_REQUEST)
+
+    def patch(self,request,single_productid):
+        Reviewrating=reviewrating.objects.get(user=request.user,product_id=single_productid)
+        serializer=Reviewupdateserializer(Reviewrating,data=request.data,partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'data':'review updated successfully'},status=status.HTTP_200_OK)
+        else:
+            return Response({'error':serializer.errors},status=status.HTTP_400_BAD_REQUEST)
+
     
             
 class search(APIView):
