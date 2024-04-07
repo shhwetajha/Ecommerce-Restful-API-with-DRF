@@ -68,6 +68,7 @@ class reviewratingregister(APIView):
         product=Products.objects.get(id=single_productid)
         serializer=reviewratingserialzer(data=request.data,context={'user':request.user,'product':product})
         if serializer.is_valid():
+            print('*************************')
             Reviewrating=reviewrating.objects.get(user=request.user)
             Reviewrating.ip=request.META.get('REMOTE_ADDR')
             Reviewrating.save()       
