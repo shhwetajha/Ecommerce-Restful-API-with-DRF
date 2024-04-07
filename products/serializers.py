@@ -23,7 +23,7 @@ class reviewratingserialzer(serializers.ModelSerializer):
         model=reviewrating
         fields=['subject','review','rating']
 
-    def validate(self,validated_data):
+    def save(self,**kwargs):
         subject=self.validated_data['subject']
         review=self.validated_data['review']
         rating=self.validated_data['rating']
@@ -37,7 +37,8 @@ class reviewratingserialzer(serializers.ModelSerializer):
         # data.review=review
         # data.rating=rating
         # data.save()
-        return data 
+        self.instance=data
+        return self.instance
 
 
 class Reviewupdateserializer(serializers.ModelSerializer):
