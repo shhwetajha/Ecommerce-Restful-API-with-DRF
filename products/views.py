@@ -62,6 +62,8 @@ class reviewratingregister(APIView):
     renderer_classes=[UserRenderer]
     permission_classes=[IsAuthenticated]
 
+    # http_method_names=['post','patch']
+
     def post(self,request,single_productid):
         product=Products.objects.get(id=single_productid)
         serializer=reviewratingserialzer(data=request.data,context={'user':request.user,'product':product})
@@ -110,5 +112,11 @@ class ReviewRatingg(ModelViewSet):
 
     def get_serializer_context(self):
         return{'product_id':self.kwargs['product_pk']}
+
+
+# class ReviewRatingView(APIView):
+#     permission_classes=[IsAuthenticated]
+#     def post(self):
+#         serializer=ReviewRatingPostSerializer(data=request.data,context={'user':req})
 
     

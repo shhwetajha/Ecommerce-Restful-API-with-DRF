@@ -23,10 +23,10 @@ class reviewratingserialzer(serializers.ModelSerializer):
         model=reviewrating
         fields=['subject','review','rating']
 
-    def validate(self,attrs):
-        subject=attrs.get('subject')
-        review=attrs.get('review')
-        rating=attrs.get('rating')
+    def validate(self,validated_data):
+        subject=self.validated_data.get('subject')
+        review=self.validated_data.get('review')
+        rating=self.validated_data.get('rating')
         user=self.context.get('user')
         product=self.context.get('product')
         data=reviewrating()
@@ -36,7 +36,7 @@ class reviewratingserialzer(serializers.ModelSerializer):
         data.review=review
         data.rating=rating
         data.save()
-        return attrs
+        return data 
 
 
 class Reviewupdateserializer(serializers.ModelSerializer):
@@ -93,3 +93,17 @@ class variations_addedSerializer(serializers.ModelSerializer):
     class Meta:
         model=variations_added
         fields=['id','variation_category','variation_value']
+
+
+# class ReviewRatingPostSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model=reviewrating
+#         fields=['subject','review','rating']
+
+#     def create(self,validated_data):
+#         subject=self.validated_data.get('subject')
+#         review=self.validated_data.get('review')
+#         rating=self.validated_data.get('rating')
+
+#         review=reviewrating.objects.create()
+
