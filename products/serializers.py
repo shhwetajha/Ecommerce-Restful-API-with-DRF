@@ -24,18 +24,19 @@ class reviewratingserialzer(serializers.ModelSerializer):
         fields=['subject','review','rating']
 
     def validate(self,validated_data):
-        subject=self.validated_data.get('subject')
-        review=self.validated_data.get('review')
-        rating=self.validated_data.get('rating')
+        subject=self.validated_data['subject']
+        review=self.validated_data['review']
+        rating=self.validated_data['rating']
         user=self.context.get('user')
         product=self.context.get('product')
-        data=reviewrating()
-        data.user=user
-        data.product=product
-        data.subject=subject
-        data.review=review
-        data.rating=rating
-        data.save()
+        data=reviewrating.objects.create(user=user,product=product,subject=subject,review=review,rating=rating)
+        # data=reviewrating()
+        # data.user=user
+        # data.product=product
+        # data.subject=subject
+        # data.review=review
+        # data.rating=rating
+        # data.save()
         return data 
 
 
